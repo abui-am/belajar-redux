@@ -7,4 +7,5 @@ export const store = configureStore({
     counter: counterReducer,
     app: appReducer,
   },
+  devTools: process.env.NODE_ENV !== 'production',
 });
