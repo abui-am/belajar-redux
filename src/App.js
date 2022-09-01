@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useSelector } from 'react-redux';
 import Counter from './components/Counter';
-import { selectCounter } from './redux/reducers/counter';
+import { selectCounter } from './redux/features/counter';
 
 function App() {
   const counter = useSelector(selectCounter);

@@ -1,12 +1,10 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import counterReducer from './reducers/counter';
-import appReducer from './reducers/app';
-import reduxThunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import appReducer from './features/app';
+import counterReducer from './features/counter';
 
-export const store = createStore(
-  combineReducers({
+export const store = configureStore({
+  reducer: {
     counter: counterReducer,
     app: appReducer,
-  }),
-  applyMiddleware(reduxThunk)
-);
+  },
+});

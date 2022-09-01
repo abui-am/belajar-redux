@@ -1,12 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getJsonAndDispatchItIntoRedux,
-  setAppName,
-} from '../redux/actions/app';
-import { decrement, increment } from '../redux/actions/counter';
-import { selectAppJson, selectAppName } from '../redux/reducers/app';
-import { selectCounter } from '../redux/reducers/counter';
+import { setAppName, setJson } from '../redux/features/app';
+import { decrement, increment, selectCounter } from '../redux/features/counter';
+import { selectAppJson, selectAppName } from '../redux/features/app';
 
 const Counter = () => {
   const dispatch = useDispatch();
@@ -22,7 +18,10 @@ const Counter = () => {
   };
 
   const handleChangeJSON = async () => {
-    dispatch(getJsonAndDispatchItIntoRedux());
+    const json = await fetch(
+      'https://jsonplaceholder.typicode.com/todos/1'
+    ).then((response) => response.json());
+    dispatch(setJson(json));
   };
 
   return (
@@ -37,7 +36,7 @@ const Counter = () => {
       <div>
         <input
           onChange={(e) => {
-            dispatch(setAppName(e));
+            dispatch(setAppName(e.target.value));
           }}
         ></input>
       </div>
