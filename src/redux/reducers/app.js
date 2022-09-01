@@ -24,4 +24,7 @@ const appReducer = (state = initialState, action) => {
   }
 };
 
+export const selectAppName = (state) => state.app.name;
+export const selectAppJson = (state) => state.app.json;
+
 export default appReducer;

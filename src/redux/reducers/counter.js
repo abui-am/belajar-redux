@@ -23,4 +23,6 @@ const counterReducer = (state = initialState, action) => {
   }
 };
 
+export const selectCounter = (state) => state.counter.counter;
+
 export default counterReducer;

@@ -1,32 +1,28 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { CHANGE_JSON, SET_NAME } from '../redux/actions/app';
-import { DECREMENT, INCREMENT } from '../redux/actions/counter';
+import {
+  getJsonAndDispatchItIntoRedux,
+  setAppName,
+} from '../redux/actions/app';
+import { decrement, increment } from '../redux/actions/counter';
+import { selectAppJson, selectAppName } from '../redux/reducers/app';
+import { selectCounter } from '../redux/reducers/counter';
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter.counter);
-  const name = useSelector((state) => state.app.name);
+  const counter = useSelector(selectCounter);
+  const name = useSelector(selectAppName);
+  const json = useSelector(selectAppJson);
 
   const handleIncrement = () => {
-    dispatch({
-      type: INCREMENT,
-    });
+    dispatch(increment());
   };
   const handleDecrement = () => {
-    dispatch({
-      type: DECREMENT,
-    });
+    dispatch(decrement());
   };
 
   const handleChangeJSON = async () => {
-    const json = await fetch(
-      'https://jsonplaceholder.typicode.com/todos/1'
-    ).then((response) => response.json());
-    dispatch({
-      type: CHANGE_JSON,
-      payload: json,
-    });
+    dispatch(getJsonAndDispatchItIntoRedux());
   };
 
   return (
@@ -34,16 +30,14 @@ const Counter = () => {
       <div>
         {counter} {name}
       </div>
+      <div>{JSON.stringify(json)}</div>
       <button onClick={handleIncrement}>Increment</button>
       <button onClick={handleDecrement}>Decrement</button>
       <button onClick={handleChangeJSON}>ChangeJSON</button>
       <div>
         <input
           onChange={(e) => {
-            dispatch({
-              type: SET_NAME,
-              payload: e.target.value,
-            });
+            dispatch(setAppName(e));
           }}
         ></input>
       </div>
