@@ -1,6 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAppName, setJson } from '../redux/features/app';
+import {
+  fetchJson,
+  selectAppJsonStatus,
+  setAppName,
+} from '../redux/features/app';
 import { decrement, increment, selectCounter } from '../redux/features/counter';
 import { selectAppJson, selectAppName } from '../redux/features/app';
 
@@ -9,6 +13,7 @@ const Counter = () => {
   const counter = useSelector(selectCounter);
   const name = useSelector(selectAppName);
   const json = useSelector(selectAppJson);
+  const jsonStatus = useSelector(selectAppJsonStatus);
 
   const handleIncrement = () => {
     dispatch(increment());
@@ -18,11 +23,11 @@ const Counter = () => {
   };
 
   const handleChangeJSON = async () => {
-    const json = await fetch(
-      'https://jsonplaceholder.typicode.com/todos/1'
-    ).then((response) => response.json());
-    dispatch(setJson(json));
+    dispatch(fetchJson());
   };
+
+  if (jsonStatus === 'loading') return <div>Loading...</div>;
+  if (jsonStatus === 'failed') return <div>Error...</div>;
 
   return (
     <div>
