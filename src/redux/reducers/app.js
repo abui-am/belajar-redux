@@ -1,16 +1,28 @@
-import { CHANGE_JSON, SET_NAME } from '../actions/app';
+import {
+  CHANGE_JSON_PLACEHOLDER_DATA,
+  CHANGE_JSON_PLACEHOLDER_DATA_STATUS,
+  SET_NAME,
+} from '../actions/app';
 
 const initialState = {
-  json: {},
+  jsonPlaceholderData: {},
+  jsonPlaceholderDataStatus: 'idle',
   name: '',
 };
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_JSON:
+    case CHANGE_JSON_PLACEHOLDER_DATA:
       return {
         ...state,
-        json: action.payload,
+        jsonPlaceholderData: action.payload,
+        jsonPlaceholderDataStatus: 'success',
+      };
+
+    case CHANGE_JSON_PLACEHOLDER_DATA_STATUS:
+      return {
+        ...state,
+        jsonPlaceholderDataStatus: action.payload,
       };
 
     case SET_NAME:
