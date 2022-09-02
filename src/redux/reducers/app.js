@@ -1,7 +1,8 @@
-import { CHANGE_JSON, SET_NAME } from '../actions/app';
+import { CHANGE_JSON, CHANGE_JSON_STATUS, SET_NAME } from '../actions/app';
 
 const initialState = {
   json: {},
+  jsonStatus: 'idle',
   name: '',
 };
 
@@ -11,6 +12,13 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         json: action.payload,
+        jsonStatus: 'success',
+      };
+
+    case CHANGE_JSON_STATUS:
+      return {
+        ...state,
+        jsonStatus: action.payload,
       };
 
     case SET_NAME:
